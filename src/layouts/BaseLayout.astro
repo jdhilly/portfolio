@@ -7,8 +7,9 @@ export interface Props {
 }
 
 const {
-  title = "Julien Dhilly — Architecte Logiciel & Lead Dev Freelance",
-  description = "Architecte logiciel et développeur freelance basé à Rennes. +11 ans d'expérience en web, mobile et architecture logicielle.",
+  title = "Julien Dhilly — Architecte Logiciel & Lead Dev Freelance à Rennes",
+  description = "Architecte logiciel, Lead Dev et développeur freelance basé à Rennes. +15 ans d'expérience en architecture logicielle, NestJS, TypeScript, cloud AWS et développement agentic IA. Disponible pour missions.",
+  ogImage = "/images/og-image.jpg",
 } = Astro.props;
 ---
 
@@ -21,11 +22,20 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
 
+    <!-- Canonical -->
+    <link rel="canonical" href="https://jdhilly.dev" />
+
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jdhilly.dev" />
     <meta property="og:locale" content="fr_FR" />
+    <meta property="og:image" content={`https://jdhilly.dev${ogImage}`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Julien Dhilly — Architecte Logiciel Freelance" />
+    <meta property="og:site_name" content="jdhilly.dev" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
