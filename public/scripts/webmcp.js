@@ -31,7 +31,6 @@ const projectsData = [
   { slug: "testo", title: "Testo Check", duration: "4 mois (2021)", stack: ["Flutter", "NestJS", "Firebase"] },
   { slug: "pitch", title: "Pitch — Armada Production", duration: "2021", stack: ["Flutter", "Firebase", "FFmpeg"] },
   { slug: "salaun", title: "Salaün Holidays", duration: "5 mois (2022)", stack: ["Laravel", "Bootstrap"] },
-  { slug: "fhd", title: "Frénéhard Pliage", duration: "20 jours (2022)", stack: ["Wordpress", "WooCommerce", "DriveWorks"] },
   { slug: "cine35", title: "Ciné35", duration: "2 mois (2021)", stack: ["VueJS", "Bootstrap"] },
 ];
 
