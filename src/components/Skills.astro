@@ -1,0 +1,268 @@
+---
+import { profile } from '../data/profile';
+
+const categories = [
+  { key: 'back', label: 'BACK-END', comment: '// api & serveurs' },
+  { key: 'front', label: 'FRONT-END', comment: '// interfaces & frameworks' },
+  { key: 'devops', label: 'INFRA & DEVOPS', comment: '// cloud & cicd' },
+  { key: 'mobile', label: 'MOBILE', comment: '// cross-platform' },
+  { key: 'methodology', label: 'MÉTHODOLOGIES', comment: '// architecture & pratiques' },
+  { key: 'ai', label: 'AI & AGENTIC', comment: '// nouveaux paradigmes' },
+] as const;
+---
+
+<section id="skills">
+  <div class="section-label">
+    <span class="section-num">§ 03</span>
+    <div class="section-line"></div>
+    <span class="section-title">COMPÉTENCES</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="skills-grid">
+    {categories.map(({ key, label, comment }) => {
+      const items = profile.skills[key as keyof typeof profile.skills];
+      return (
+        <div class="skill-group">
+          <div class="group-header">
+            <span class="group-label">{label}</span>
+            <span class="group-comment">{comment}</span>
+          </div>
+          <div class="skill-list">
+            {items.map(({ name, level }) => (
+              <div class="skill-item">
+                <div class="skill-meta">
+                  <span class="skill-name">{name}</span>
+                  <span class="skill-level">{level}%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-fill" style={`width: ${level}%`}></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- XP counter -->
+  <div class="xp-banner">
+    <div class="xp-item">
+      <span class="xp-value">+15</span>
+      <span class="xp-label">ans d'expérience</span>
+    </div>
+    <div class="xp-divider"></div>
+    <div class="xp-item">
+      <span class="xp-value">9</span>
+      <span class="xp-label">projets majeurs</span>
+    </div>
+    <div class="xp-divider"></div>
+    <div class="xp-item">
+      <span class="xp-value">5</span>
+      <span class="xp-label">startups accompagnées</span>
+    </div>
+    <div class="xp-divider"></div>
+    <div class="xp-item">
+      <span class="xp-value">∞</span>
+      <span class="xp-label">side projects</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  #skills {
+    padding: 100px 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 56px;
+  }
+
+  .section-num, .section-title {
+    font-size: 10px;
+    color: var(--cyan);
+    letter-spacing: 3px;
+    opacity: 0.6;
+    white-space: nowrap;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(0, 232, 198, 0.3), transparent);
+  }
+
+  .section-line:last-child {
+    background: linear-gradient(to left, rgba(0, 232, 198, 0.3), transparent);
+  }
+
+  /* Grid */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px 64px;
+    margin-bottom: 64px;
+  }
+
+  .skill-group {}
+
+  .group-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .group-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--cyan);
+    letter-spacing: 3px;
+  }
+
+  .skill-group:last-child .group-label {
+    color: var(--red);
+  }
+
+  .skill-group:last-child .skill-fill {
+    background: linear-gradient(to right, rgba(255, 77, 109, 0.5), var(--red));
+    box-shadow: 0 0 6px rgba(255, 77, 109, 0.3);
+  }
+
+  .skill-group:last-child .skill-fill::after {
+    background: var(--red);
+    box-shadow: 0 0 4px var(--red);
+  }
+
+  .skill-group:last-child .skill-level {
+    color: var(--red);
+  }
+
+  .group-comment {
+    font-size: 10px;
+    color: var(--faint);
+    letter-spacing: 1px;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .skill-item {}
+
+  .skill-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .skill-name {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .skill-level {
+    font-size: 10px;
+    color: var(--cyan);
+    opacity: 0.5;
+  }
+
+  .skill-bar {
+    height: 2px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 232, 198, 0.5), var(--cyan));
+    box-shadow: 0 0 6px rgba(0, 232, 198, 0.3);
+    position: relative;
+  }
+
+  .skill-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 4px;
+    height: 6px;
+    background: var(--cyan);
+    box-shadow: 0 0 4px var(--cyan);
+  }
+
+  /* XP Banner */
+  .xp-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .xp-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 32px 24px;
+  }
+
+  .xp-divider {
+    width: 1px;
+    height: 60px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .xp-value {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 48px;
+    color: var(--cyan);
+    line-height: 1;
+  }
+
+  .xp-label {
+    font-size: 10px;
+    color: var(--faint);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 1024px) {
+    .skills-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    #skills {
+      padding: 60px 24px;
+    }
+    .skills-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .xp-banner {
+      flex-wrap: wrap;
+    }
+    .xp-divider { display: none; }
+    .xp-item { width: 50%; border-bottom: 1px solid var(--border); }
+  }
+</style>

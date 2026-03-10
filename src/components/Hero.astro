@@ -1,0 +1,419 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section id="hero">
+  <!-- Coordinates -->
+  <div class="coord coord-tl">48.1173°N / 1.6778°W — RENNES</div>
+  <div class="coord coord-tr">v2.0.0 — 2026</div>
+
+  <!-- Corner brackets -->
+  <div class="bracket bracket-tl"></div>
+  <div class="bracket bracket-tr"></div>
+  <div class="bracket bracket-bl"></div>
+  <div class="bracket bracket-br"></div>
+
+  <!-- Main content -->
+  <div class="hero-content">
+    <!-- Eyebrow -->
+    <div class="hero-eyebrow animate-in">
+      <span class="dot"></span>
+      <span>Disponible · Freelance · {profile.experience} XP</span>
+    </div>
+
+    <!-- Name -->
+    <h1 class="hero-name animate-in delay-1">
+      {profile.name.split(' ')[0]}<br />
+      {profile.name.split(' ')[1]}<span class="accent">.</span>
+    </h1>
+
+    <!-- Typed role -->
+    <div class="hero-role animate-in delay-2">
+      <span id="typed-text"></span><span class="cursor">_</span>
+    </div>
+
+    <!-- Bio -->
+    <p class="hero-bio animate-in delay-3">{profile.bio}</p>
+
+    <!-- AI stack tags -->
+    <div class="hero-ai-stack animate-in delay-4">
+      <span class="ai-label">// workflow actuel</span>
+      <div class="ai-tags">
+        <span class="ai-tag ai-tag--active">Claude Code</span>
+        <span class="ai-tag">Agentic Dev</span>
+        <span class="ai-tag">WebMCP</span>
+        <span class="ai-tag ai-tag--client">↳ Weproc</span>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="hero-ctas animate-in delay-5">
+      <a href="#works" class="btn-primary">Mes projets →</a>
+      {/* <a href={profile.social.cv} class="btn-secondary" download>CV PDF ↓</a> */}
+    </div>
+  </div>
+
+  <!-- AI activity panel (right side) -->
+  <div class="hero-panel" aria-hidden="true">
+    <div class="panel-header">// activité IA</div>
+    <div class="panel-items">
+      <div class="panel-item">
+        <span class="panel-dot panel-dot--on"></span>
+        <span class="panel-key">claude_code</span>
+        <span class="panel-val">active</span>
+      </div>
+      <div class="panel-item">
+        <span class="panel-dot panel-dot--on"></span>
+        <span class="panel-key">weproc</span>
+        <span class="panel-val">deployed</span>
+      </div>
+      <div class="panel-item">
+        <span class="panel-dot"></span>
+        <span class="panel-key">agentic_watch</span>
+        <span class="panel-val">daily</span>
+      </div>
+      <div class="panel-item">
+        <span class="panel-dot"></span>
+        <span class="panel-key">lines_written_by_ai</span>
+        <span class="panel-val" id="ai-counter">—</span>
+      </div>
+    </div>
+    <div class="panel-separator"></div>
+    <div class="panel-note">ce portfolio a été<br/>co-écrit avec Claude</div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator animate-in delay-5">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<script>
+  const roles = ["ARCHITECTE LOGICIEL", "LEAD DEV", "AGENTIC DEV EARLY ADOPTER", "DÉVELOPPEUR FREELANCE"];
+  let roleIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
+  const el = document.getElementById('typed-text');
+
+  function type() {
+    if (!el) return;
+    const current = roles[roleIndex];
+    if (!deleting) {
+      el.textContent = current.slice(0, charIndex + 1);
+      charIndex++;
+      if (charIndex === current.length) {
+        deleting = true;
+        setTimeout(type, 2000);
+        return;
+      }
+    } else {
+      el.textContent = current.slice(0, charIndex - 1);
+      charIndex--;
+      if (charIndex === 0) {
+        deleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+      }
+    }
+    setTimeout(type, deleting ? 40 : 70);
+  }
+
+  type();
+</script>
+
+<style>
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 48px 80px;
+    position: relative;
+  }
+
+  /* Coordinates */
+  .coord {
+    position: absolute;
+    font-size: 10px;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    opacity: 0.35;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .coord-tl { top: 32px; left: 48px; }
+  .coord-tr { top: 32px; right: 48px; }
+
+  /* Brackets */
+  .bracket {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: rgba(0, 232, 198, 0.25);
+    border-style: solid;
+  }
+  .bracket-tl { top: 64px; left: 48px; border-width: 1px 0 0 1px; }
+  .bracket-tr { top: 64px; right: 48px; border-width: 1px 1px 0 0; }
+  .bracket-bl { bottom: 64px; left: 48px; border-width: 0 0 1px 1px; }
+  .bracket-br { bottom: 64px; right: 48px; border-width: 0 1px 1px 0; }
+
+  /* Content */
+  .hero-content {
+    max-width: 900px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    opacity: 0;
+  }
+
+  .dot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: var(--cyan);
+    border-radius: 50%;
+    animation: pulse-glow 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  .hero-eyebrow span:last-child {
+    font-size: 11px;
+    color: var(--cyan);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  .hero-name {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(60px, 10vw, 120px);
+    line-height: 0.95;
+    color: var(--text);
+    letter-spacing: -2px;
+    margin-bottom: 36px;
+    opacity: 0;
+  }
+
+  .accent { color: var(--cyan); }
+
+  .hero-role {
+    font-size: clamp(13px, 1.8vw, 18px);
+    color: var(--cyan);
+    letter-spacing: 6px;
+    margin-bottom: 40px;
+    min-height: 28px;
+    opacity: 0;
+  }
+
+  .cursor {
+    animation: blink 1s step-end infinite;
+  }
+
+  .hero-bio {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.9;
+    margin-bottom: 48px;
+    border-left: 2px solid rgba(0, 232, 198, 0.2);
+    padding-left: 20px;
+    opacity: 0;
+  }
+
+  /* AI stack */
+  .hero-ai-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+    opacity: 0;
+  }
+
+  .ai-label {
+    font-size: 9px;
+    color: var(--faint);
+    letter-spacing: 2px;
+  }
+
+  .ai-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ai-tag {
+    font-size: 10px;
+    color: var(--faint);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    letter-spacing: 1px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .ai-tag--active {
+    color: var(--cyan);
+    border-color: rgba(0, 232, 198, 0.4);
+    box-shadow: 0 0 8px rgba(0, 232, 198, 0.1);
+  }
+
+  .ai-tag--client {
+    color: var(--red);
+    border-color: rgba(255, 77, 109, 0.3);
+    font-style: italic;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    opacity: 0;
+  }
+
+  .btn-primary {
+    background: transparent;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 13px 28px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--cyan);
+    color: var(--bg);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid rgba(255, 77, 109, 0.3);
+    color: var(--faint);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 13px 28px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  /* Right decorative lines */
+  /* AI panel */
+  .hero-panel {
+    position: absolute;
+    right: 48px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 220px;
+    border: 1px solid var(--border);
+    padding: 20px;
+    background: rgba(8, 12, 20, 0.7);
+    backdrop-filter: blur(8px);
+  }
+
+  .panel-header {
+    font-size: 9px;
+    color: var(--faint);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .panel-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .panel-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .panel-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--border-2);
+    flex-shrink: 0;
+  }
+
+  .panel-dot--on {
+    background: var(--cyan);
+    box-shadow: 0 0 4px var(--cyan);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .panel-key {
+    font-size: 9px;
+    color: var(--faint);
+    flex: 1;
+    letter-spacing: 0.5px;
+  }
+
+  .panel-val {
+    font-size: 9px;
+    color: var(--cyan);
+    opacity: 0.7;
+  }
+
+  .panel-separator {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 14px;
+  }
+
+  .panel-note {
+    font-size: 9px;
+    color: var(--faint);
+    opacity: 0.5;
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 48px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    opacity: 0;
+  }
+
+  .scroll-indicator span {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--faint);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--cyan), transparent);
+  }
+
+  @media (max-width: 768px) {
+    #hero {
+      padding: 100px 24px 60px;
+    }
+    .coord-tr, .hero-panel, .scroll-indicator { display: none; }
+    .bracket { display: none; }
+  }
+</style>

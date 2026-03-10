@@ -1,0 +1,18 @@
+{
+  "tools": [
+    {
+      "name": "getProfile",
+      "description": "Returns the complete profile of Julien Dhilly"
+    },
+    {
+      "name": "listProjects",
+      "description": "Returns the list of portfolio projects"
+    },
+    {
+      "name": "checkAvailability",
+      "description": "Check freelance availability"
+    }
+  ],
+  "contact": "https://juliendhilly.dev/contact",
+  "spec": "https://github.com/webmachinelearning/webmcp"
+}

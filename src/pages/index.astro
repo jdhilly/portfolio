@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Projects from '../components/Projects.astro';
+import Skills from '../components/Skills.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<BaseLayout>
+  <Nav />
+  <main>
+    <Hero />
+    <Projects />
+    <Skills />
+    <Contact />
+  </main>
+
+  <footer>
+    <span>© 2026 JULIEN DHILLY</span>
+    <span>RENNES — FRANCE</span>
+    <span>BUILT WITH ASTRO + WEBMCP</span>
+  </footer>
+</BaseLayout>
+
+<style>
+  main {
+    padding-top: 61px; /* nav height */
+  }
+
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--faint);
+    letter-spacing: 2px;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 768px) {
+    footer {
+      padding: 16px 24px;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+    }
+  }
+</style>

@@ -1,0 +1,126 @@
+---
+const navItems = [
+  { label: "Works", href: "#works" },
+  { label: "Skills", href: "#skills" },
+  { label: "Contact", href: "#contact" },
+];
+---
+
+<nav id="nav">
+  <div class="nav-logo">
+    JD<span class="nav-logo-dots">____</span>
+  </div>
+
+  <ul class="nav-links">
+    {navItems.map(({ label, href }) => (
+      <li>
+        <a href={href} class="nav-link">{label}</a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="nav-status">
+    <span class="status-dot"></span>
+    <span class="status-text">Disponible</span>
+  </div>
+</nav>
+
+<style>
+  #nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    background: rgba(8, 12, 20, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: border-color 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--cyan);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  .nav-logo-dots {
+    color: var(--border-2);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--faint);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--cyan);
+    transition: width 0.3s;
+  }
+
+  .nav-link:hover {
+    color: var(--cyan);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--cyan);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .status-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    #nav {
+      padding: 16px 24px;
+    }
+    .nav-links {
+      gap: 20px;
+    }
+    .nav-status {
+      display: none;
+    }
+  }
+</style>
